@@ -1,4 +1,5 @@
-import OpenHabEvent from './OpenHabEvent';
+import OpenhabEvent from './OpenhabEvent';
+import OpenhabTopic from './OpenhabTopic';
 /**
  * Receives realtime events from an Openhab server,
  * formats the data into custom JHS event objects and
@@ -11,32 +12,25 @@ import OpenHabEvent from './OpenHabEvent';
  * build pipeline is appropriately configured.
  */
 
-export default class OpenhabEventManager extends EventTarget {
+export default class OpenhabEventConnector extends EventTarget {
   constructor() {
     super();
     this.conn = null;
   }
 
-  connect(url) {
+  open(url) {
     this.close();
     this.conn = new EventSource(url);
     this.conn.addEventListener('error', e => this.dispatchEvent(new Event(e.type, e.message)));
     this.conn.addEventListener('open', e => this.dispatchEvent(new Event(e.type)));
-    this.conn.addEventListener('message', e => this.onMessage(e));
+    this.conn.addEventListener('message', e => this.onOpenhabEvent(e));
   }
 
-  onMessage(e) {
+  onOpenhabEvent(e) {
     const data = JSON.parse(e.data);
+    const topic = new OpenhabTopic().parse(data.topic);
     const payload = JSON.parse(data.payload);
-    const { type, topic } = data;
-    // const evt = new OpenHabEvent(type, topic, payload);
-    // const customEvent = new CustomEvent(data.type, {
-    //   detail: {
-    //     payload,
-    //     topic: data.topic,
-    //   },
-    // });
-    this.dispatchEvent(new OpenHabEvent(type, topic, payload));
+    this.dispatchEvent(new OpenhabEvent(data.type, topic, payload));
   }
 
   close() {
@@ -45,9 +39,3 @@ export default class OpenhabEventManager extends EventTarget {
     this.conn = null;
   }
 }
-
-const READY_STATES = {
-  CONNECTING: 0,
-  OPEN: 1,
-  CLOSED: 2,
-};

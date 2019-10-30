@@ -16,7 +16,7 @@ const ITEM_CHANNEL_LINK_ADDED = 'ItemChannelLinkAddedEvent';
 const ITEM_CHANNEL_LINK_REMOVED = 'ItemChannelLinkRemovedEvent';
 const CHANNEL_TRIGGERED = 'ChannelTriggeredEvent';
 
-export default class OpenHabEvent extends Event {
+export default class OpenhabEvent extends Event {
   static get ITEM_ADDED() {
     return ITEM_ADDED;
   }
