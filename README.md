@@ -1,23 +1,18 @@
 # svelte app
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template-webpack.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
-```bash
-npx degit sveltejs/template-webpack svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
+This project uses the [Svelte](https://svelte.dev) library. Svelte is a lighweight framework for reactive JS applications. Yes, another one of those.
 
 ## Get started
+
+Update the src/config.js file with the URL of your Openhab server. Take some time familiarising yourself with the p[OpeenHab Rest API](https://www.openhab.org/docs/configuration/restdocs.html) and [Event Bus](https://www.openhab.org/docs/developer/utils/events.html).
+
+If you are getting a CORS error when you try to access your OpenHab server, you can either:
+• Reimplement the connectors and data parts in å server-side app or lambda functions; or
+• Enable cross-origin access on your OpenHab server (standard security warnings apply, at your own risk etc). See [Additional Considerations](https://www.openhab.org/docs/configuration/restdocs.html#additional-considerations) section on the OpenHab API docs for instructions.
 
 Install the dependencies...
 
 ```bash
-cd svelte-app
 npm install
 ```
 
@@ -27,38 +22,4 @@ npm install
 npm run dev
 ```
 
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and the page should reload with your changes.
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-now
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public
-```
+Navigate to [localhost:8080](http://localhost:8080). You should see your app running.
